@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+:root {
+    --primary-color: #955df4;
+    --secondary-color: #ff816c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Cabin', sans-serif;
+}
+
+.conBox {
+    max-width: 90%;
+    margin: 2rem auto;
+    padding-bottom: 2rem;
+    -webkit-box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+}
+
+header {
+    width: 100%;
+    background-color: black;
+    /* background: var(--primary-color); */
+    text-align: center;
+    color: white;
+    padding: 1rem;
+}
+
+header h3 {
+    color: #fff;
+    margin-left: 1.5rem;
+}
+
+
+/* .table-users {
+  width: 80%;
+  margin: 2rem auto;
+  border-collapse: collapse;
+  
+}
+.table-users th, .table-users td {
+  text-align: left;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: .5rem;
+}
+.table-users th {
+  background: #fafafa;
+  padding: 1rem auto;
+} */
+
+
+/* .btn {
+  background: transparent;
+  width: 5rem;
+  height: 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: all .5s ease;
+} */
+
+
+/* *******************************************delete */
+
+.btn-delete {
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-delete:hover {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+
+/* ************************************************** */
+
+
+/* .table-wrapper {
+  text-align: center;
+} */
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+#videoInput {
+    width: 100%;
+    height: 530px;
+}
+
+@media screen and (max-width: 992px) {
+    #videoInput {
+        display: none;
+        position: fixed;
+    }
+}
+
+
+/**************************************************** Loder */
+
+.loader {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-animation: bgcolor 20s infinite;
+    animation: bgcolor 10s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+.loader>body {
+    width: 100px;
+}
+
+.loader.hidden {
+    animation: fadeOut 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes bgcolor {
+    0% {
+        background-color: #45a3e5
+    }
+    30% {
+        background-color: #66bf39
+    }
+    60% {
+        background-color: #eb670f
+    }
+    90% {
+        background-color: #f35
+    }
+    100% {
+        background-color: #864cbf
+    }
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 60px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    /* margin: 8px; */
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* *********************************************** */
+
+
+/* not display video when responsive >960 */
+
+#output,
+#outputImg {
+    display: none;
+}
+
+
+/************************** search:::: inputDate */
+
+#inputDate {
+    width: 100px;
+    height: 20px;
+    transition: width .5s ease;
+    font-size: 12px;
+    background-color: #ECF2F2;
+    border: 1px solid #ECF2F2;
+    color: #0E2F47;
+    border-radius: 8px;
+    outline: none;
+}
+
+#inputDate:focus {
+    width: 160px;
+    height: 25px;
+    text-align: center;
+}
+
+
+/* ****************************** */
+
+
+/****************************loader image finish*/
+
+@media screen and (max-width: 960px) {
+    .loader {
+        display: none;
+    }
+    #videoInput {
+        display: none;
+    }
+}
