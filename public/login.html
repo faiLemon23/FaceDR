@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firebase Server Auth</title>
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
@@ -17,15 +16,67 @@
         <section>
             <form id="login">
                 <label>Login</label>
-                <input type="text" name="login" />
+                <input type="text" name="login" placeholder="email" required />
                 <label>Password</label>
-                <input type="password" name="password" />
+                <input type="password" name="password" placeholder="password" required/>
                 <button>Log in</button>
             </form>
         </section>
-        <script src="../js/login.js"></script>
-    </main>
 
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                var firebaseConfig = {
+                    apiKey: "AIzaSyDIKQ278rabheOzbV8gvNRG39a_vcTcDNw",
+                    authDomain: "tester-e9a14.firebaseapp.com",
+                    projectId: "tester-e9a14",
+                    storageBucket: "tester-e9a14.appspot.com",
+                    messagingSenderId: "978520269780",
+                    appId: "1:978520269780:web:8439cf0282cb52ac7b2c41"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+
+                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+
+
+                document
+                    .getElementById("login")
+                    .addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        const login = event.target.login.value;
+                        const password = event.target.password.value;
+
+                        firebase
+                            .auth()
+                            .signInWithEmailAndPassword(login, password)
+                            .then(({
+                                user
+                            }) => {
+                                return user.getIdToken().then((idToken) => {
+                                    return fetch("/sessionLogin", {
+                                        method: "POST",
+                                        headers: {
+                                            Accept: "application/json",
+                                            "Content-Type": "application/json",
+                                            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                                        },
+                                        body: JSON.stringify({
+                                            idToken
+                                        }),
+                                    });
+                                });
+                            })
+                            .then(() => {
+                                return firebase.auth().signOut();
+                            })
+                            .then(() => {
+                                window.location.assign("/profile");
+                            });
+                        return false;
+                    });
+            });
+        </script>
+    </main>
 </body>
 
 </html>

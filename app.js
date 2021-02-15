@@ -3,7 +3,6 @@ const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const express = require("express");
 const admin = require("firebase-admin");
-
 var serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
@@ -11,14 +10,16 @@ admin.initializeApp({
     databaseURL: "https://tester-e9a14.firebaseapp.com"
 });
 const csrfMiddleware = csrf({ cookie: true });
-
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.set('views', 'public')
 app.engine("html", require("ejs").renderFile);
-app.use(express.static("public"));
+app.use(express.static('public'));
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(csrfMiddleware);
@@ -36,55 +37,53 @@ app.get("/signup", function(req, res) {
     res.render("signup.html");
 });
 
-
 app.get("/profile", function(req, res) {
     const sessionCookie = req.cookies.session || "";
-
     admin.auth().verifySessionCookie(sessionCookie, true).then(() => {
-
-            console.log('loginn');
             res.render("profile.html");
-
+            console.log('login')
         })
         .catch((error) => {
-            console.log('!login')
             res.redirect("/login");
-
+            console.log('!login')
         });
 });
-
 
 app.get("/", function(req, res) {
     res.render("index.html");
 });
 
+
+app.get("/sessionLogout", (req, res) => {
+    res.clearCookie("session");
+    res.redirect("/login");
+});
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString();
 
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
 
-    admin.auth().createSessionCookie(idToken, { expiresIn }).then(
-        (sessionCookie) => {
-            const options = { maxAge: expiresIn, httpOnly: true };
-            res.cookie("session", sessionCookie, options);
-            res.end(JSON.stringify({ status: "success" }));
-        },
-        (error) => {
-            res.status(401).send("UNAUTHORIZED REQUEST!");
-        }
-    );
+    admin
+        .auth()
+        .createSessionCookie(idToken, { expiresIn })
+        .then(
+            (sessionCookie) => {
+                const options = { maxAge: expiresIn, httpOnly: true };
+                res.cookie("session", sessionCookie, options);
+                res.end(JSON.stringify({ status: "success" }));
+            },
+            (error) => {
+                res.status(401).send("UNAUTHORIZED REQUEST!");
+            }
+        );
 });
-
-
-app.get("/sessionLogout", (req, res) => {
-    res.clearCookie("session");
-    res.redirect("/login.html");
-});
-
-
-
-
-
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
+
+
+// , {
+//     "source": "/sessionLogin",
+//     "destination": "/login",
+//     "type": 302
+// }
