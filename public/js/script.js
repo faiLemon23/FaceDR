@@ -10,7 +10,7 @@ var snapshots = [];
 $(window).resize(function() {
     var width = $(window).width();
     if (width > 992) {
-        alert('Your screen is too big');
+
         try {
             Promise.all([
                 faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
