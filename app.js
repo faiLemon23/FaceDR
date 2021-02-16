@@ -41,11 +41,9 @@ app.get("/profile", function(req, res) {
     const sessionCookie = req.cookies.session || "";
     admin.auth().verifySessionCookie(sessionCookie, true).then(() => {
             res.render("profile.html");
-            console.log('login')
         })
         .catch((error) => {
             res.redirect("/login");
-            console.log('!login')
         });
 });
 
@@ -53,11 +51,6 @@ app.get("/", function(req, res) {
     res.render("index.html");
 });
 
-
-app.get("/sessionLogout", (req, res) => {
-    res.clearCookie("session");
-    res.redirect("/login");
-});
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString();
 
@@ -77,13 +70,12 @@ app.post("/sessionLogin", (req, res) => {
             }
         );
 });
+
+app.get("/sessionLogout", (req, res) => {
+    res.clearCookie("session");
+    res.redirect("/login");
+});
+
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
-
-
-// , {
-//     "source": "/sessionLogin",
-//     "destination": "/login",
-//     "type": 302
-// }
