@@ -63,8 +63,7 @@ db.collection('user').orderBy('day').onSnapshot(snapshot => {
 
     })
 })
-sum = sum2 / 42;
-console.log('sum: ' + sum);
+
 
 
 

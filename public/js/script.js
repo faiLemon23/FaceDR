@@ -7,10 +7,9 @@ var videoId = 'videoInput';
 var scaleFactor = 0.15;
 var snapshots = [];
 
-$(window).width(function() {
-    var width = $(window).width();
+$(window).resize(function() {
+    var width = $(window).width(); // New width
     if (width > 992) {
-
         try {
             Promise.all([
                 faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
@@ -30,8 +29,11 @@ $(window).width(function() {
             )
 
             // video.src = '../videos/speech.mp4'
+
             console.log('video added')
             recognizeFaces()
+
+
         }
         async function recognizeFaces() {
 
@@ -93,10 +95,10 @@ $(window).width(function() {
                     for (let i = 1; i <= 5; i++) {
                         const img = await faceapi.fetchImage(`../labeled_images/${label}/${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                        console.log(label + i + JSON.stringify(detections))
+                            // console.log(label + i + JSON.stringify(detections))
                         descriptions.push(detections.descriptor)
                     }
-                    // document.body.append(label + ' Faces Loaded | ')
+                    // document.body.append(label+' Faces Loaded | ')
                     return new faceapi.LabeledFaceDescriptors(label, descriptions)
                 })
             )
@@ -149,4 +151,5 @@ $(window).width(function() {
 
         setInterval(function() { clockTick(); }, 1000); //setInterval(clockTick, 1000); will also work
     }
+
 });
