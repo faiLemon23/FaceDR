@@ -7,7 +7,7 @@ var videoId = 'videoInput';
 var scaleFactor = 0.15;
 var snapshots = [];
 
-$(window).resize(function() {
+$(window).width(function() {
     var width = $(window).width(); // New width
     if (width > 992) {
         try {
@@ -24,15 +24,12 @@ $(window).resize(function() {
             // document.body.append('Models Loaded')
 
             navigator.getUserMedia({ video: {} },
-                stream => video.srcObject = stream,
-                err => console.error(err)
-            )
-
-            // video.src = '../videos/speech.mp4'
-
+                    stream => video.srcObject = stream,
+                    err => console.error(err)
+                )
+                // video.src = '../videos/speech.mp4'
             console.log('video added')
             recognizeFaces()
-
 
         }
         async function recognizeFaces() {
