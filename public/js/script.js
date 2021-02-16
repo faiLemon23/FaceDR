@@ -7,7 +7,7 @@ var videoId = 'videoInput';
 var scaleFactor = 0.15;
 var snapshots = [];
 
-$(window).resize(function() {
+$(window).width(function() {
     var width = $(window).width();
     if (width > 992) {
 

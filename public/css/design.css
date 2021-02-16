@@ -234,7 +234,7 @@ header h3 {
 
 /****************************loader image finish*/
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 992px) {
     .loader {
         display: none;
     }
