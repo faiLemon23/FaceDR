@@ -92,7 +92,7 @@ $(window).width(function() {
                     for (let i = 1; i <= 5; i++) {
                         const img = await faceapi.fetchImage(`../labeled_images/${label}/${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-                            // console.log(label + i + JSON.stringify(detections))
+                        console.log(label + i + JSON.stringify(detections))
                         descriptions.push(detections.descriptor)
                     }
                     // document.body.append(label+' Faces Loaded | ')

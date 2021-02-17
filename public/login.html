@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firebase Server Auth</title>
     <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
+
 </head>
 
 <body>
@@ -16,9 +20,9 @@
         <section>
             <form id="login">
                 <label>Login</label>
-                <input type="text" name="login" placeholder="email" required />
+                <input type="text" name="login" onfocus="this.value=''" placeholder="email" required />
                 <label>Password</label>
-                <input type="password" name="password" placeholder="password" required/>
+                <input type="password" name="password" onfocus="this.value=''" placeholder="password" required/>
                 <button>Log in</button>
             </form>
         </section>

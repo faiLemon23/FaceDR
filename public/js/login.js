@@ -41,6 +41,13 @@ window.addEventListener("DOMContentLoaded", () => {
                     });
                 })
                 .then(() => {
+                    swal({
+                        title: "Login Success",
+                        icon: "success",
+                        button: false,
+                        text: "         ",
+
+                    })
                     return firebase.auth().signOut();
                 })
                 .then(() => {
